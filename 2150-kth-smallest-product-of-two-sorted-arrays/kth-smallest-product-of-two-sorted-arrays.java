@@ -12,9 +12,9 @@ class Solution {
     int sign = 1;
 
     if (k > negCount) {
-      k -= negCount; //  Find the (k - negCount)-th positive.
+      k -= negCount;
     } else {
-      k = negCount - k + 1; // Find the (negCount - k + 1)-th abs(negative).
+      k = negCount - k + 1;
       sign = -1;
       List<Integer> temp = B1;
       B1 = B2;
@@ -41,14 +41,12 @@ class Solution {
         A1.add(-a);
       else
         A2.add(a);
-    Collections.reverse(A1); // Reverse to sort ascending
+    Collections.reverse(A1);
   }
 
   private long numProductNoGreaterThan(List<Integer> A, List<Integer> B, long m) {
     long count = 0;
     int j = B.size() - 1;
-    // For each a, find the first index j s.t. a * B[j] <= m
-    // So numProductNoGreaterThan m for this row will be j + 1
     for (final long a : A) {
       while (j >= 0 && a * B.get(j) > m)
         --j;
