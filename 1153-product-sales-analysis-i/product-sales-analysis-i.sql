@@ -6,5 +6,3 @@ SELECT
 FROM Sales
 INNER JOIN Product
   USING (product_id);
-
-
