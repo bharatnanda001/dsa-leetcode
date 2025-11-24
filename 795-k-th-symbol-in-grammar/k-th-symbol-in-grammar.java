@@ -5,6 +5,5 @@ class Solution {
         if(k<=half)return kthGrammar(n-1,k);
         else 
         return 1- kthGrammar(n-1,k-half);
-
     }
 }
