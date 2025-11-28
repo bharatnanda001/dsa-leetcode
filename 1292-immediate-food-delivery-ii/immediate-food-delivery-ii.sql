@@ -1,4 +1,3 @@
-# Write your MySQL query statement below
 WITH
   CustomerToIsImmediate AS(
     SELECT
@@ -10,4 +9,4 @@ WITH
     FROM Delivery
   )
 SELECT ROUND(AVG(is_immediate) * 100, 2) immediate_percentage
-FROM CustomerToIsImmediate;
+FROM CustomerToIsImmediate;# Write your MySQL query statement below
