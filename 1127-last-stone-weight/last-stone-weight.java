@@ -1,15 +1,15 @@
 class Solution {
     public int lastStoneWeight(int[] stones) {
-        List<Integer>list = new ArrayList<>();
-        for( int s : stones )list.add(s);
-        while(list.size()>1){
-            Collections.sort(list);
-            int y = list.remove(list.size()-1);
-            int x = list.remove(list.size()-1);
-            if(y!=x)list.add(y-x);
+        PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
+        for(int s : stones) 
+            pq.offer(s);
+        while(pq.size()>1){
+            int y = pq.poll();
+            int x = pq.poll();
+            if(y!=x)
+                pq.offer(y-x);
         }
-        return list.isEmpty() ?0:list.get(0);
+        return pq.isEmpty()? 0:pq.peek();
+        
     }
 }
-//O(n sqrt2 log n) o(1)
-//sorting simple brute force
