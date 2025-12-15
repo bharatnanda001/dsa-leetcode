@@ -1,19 +1,21 @@
-class Solution {//sum = j 
-    int total;
-    Integer[][] memo;
-    int dfs(int[] stones , int i , int j ){
-        if(i ==stones.length)
-            return Math.abs(total-2*j);
-        if(memo[i][j] != null)
-            return memo[i][j];
-            int take = dfs(stones,i+1, j+stones[i]);
-            int skip = dfs(stones, i+1, j);
-            return memo[i][j]= Math.min(take,skip);
-    }
+class Solution {
     public int lastStoneWeightII(int[] stones) {
-        total =0; 
-        for(int s :stones)total +=s;
-        memo  = new Integer[stones.length][total+1];
-        return dfs(stones,0,0);
+        int sum =0;
+        for(int s :stones)sum +=s;
+        int target = sum /2;
+        boolean[] dp = new boolean[target +1];
+        dp[0] =true;
+        for(int s: stones ){
+            for(int j =target ; j >= s ; j--){
+                dp[j] = dp[j] || dp[j - s];
+            }
+        }
+        for(int j = target; j>= 0; j--){
+            if(dp[j])
+                return sum -2*j;
+        }
+        return 0;
     }
 }
+//bpttom up dp 0/1 knapsack  
+//O(n*sum) O(sum)
