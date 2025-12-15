@@ -1,16 +1,15 @@
-// rec top down + memo(top down dp)
 class Solution {
-    int[][]dp;
     public int longestCommonSubsequence(String a, String b) {
-        dp = new int[a.length()][b.length()];
-        for(int[] row: dp)Arrays.fill(row,-1);
-        return solve(0,0,a,b);      
-    }
-    private int solve(int i , int j, String a, String b){
-        if(i ==a.length()|| j == b.length())return 0;
-        if(dp[i][j] != -1)return dp[i][j];
-        if(a.charAt(i)==b.charAt(j))
-            return dp[i][j] =1+solve(i+1, j+1, a, b);
-            return dp[i][j] = Math.max(solve(i+1,j,a,b),solve(i,j+1,a,b));
+        int n = a.length(), m= b.length();
+        int[][] dp = new int[n+1][m+1];
+        for(int i =1; i<= n; i++){
+            for(int j =1; j <= m; j++){
+                if(a.charAt(i-1)==b.charAt(j-1))
+                    dp[i][j]=1+dp[i-1][j-1];
+                else
+                    dp[i][j] =Math.max(dp[i-1][j],dp[i][j-1]);
+            }
+        }
+        return dp[n][m];
     }
 }
