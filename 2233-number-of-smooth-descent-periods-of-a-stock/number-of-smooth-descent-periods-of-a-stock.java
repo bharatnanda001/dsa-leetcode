@@ -1,16 +1,16 @@
 class Solution {
     public long getDescentPeriods(int[] prices) {
         //price[i]- price[i+1]==1
-        long ans =1; 
-        long len =1;
-        for(int i =1; i<prices.length;i++){
-            if(prices[i-1]-prices[i]==1){
-                len++;
+        long ans =0; 
+        long dp =0;
+        for(int i =0; i<prices.length;i++){
+            if(i>0 && prices[i-1]-prices[i]==1){
+                dp++;
             }else{
-                len =1;
+                dp =1;
 
             }
-            ans +=len;
+            ans +=dp;
         }
         return ans;
     }
