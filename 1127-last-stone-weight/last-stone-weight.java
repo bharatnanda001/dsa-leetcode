@@ -11,3 +11,5 @@ class Solution {
         return list.isEmpty() ?0:list.get(0);
     }
 }
+//O(n sqrt2 log n) o(1)
+//sorting simple brute force
