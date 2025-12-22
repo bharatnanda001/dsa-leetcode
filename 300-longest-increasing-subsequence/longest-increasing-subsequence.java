@@ -1,21 +1,24 @@
 class Solution {
     public int lengthOfLIS(int[] nums) {
         int n = nums.length;
-        int[][] dp = new int[n + 1][n + 1];
+        int[] dp = new int[n];
 
-        for (int curr = n - 1; curr >= 0; curr--) {
-            for (int prev = curr - 1; prev >= -1; prev--) {
+        // Every element alone forms LIS of length 1
+        Arrays.fill(dp, 1);
 
-                int nonTake = dp[curr + 1][prev + 1];
-                int take = 0;
+        int maxi = 1;
 
-                if (prev == -1 || nums[curr] > nums[prev]) {
-                    take = 1 + dp[curr + 1][curr + 1];
+        for (int curr = 1; curr < n; curr++) {
+            for (int prev = 0; prev < curr; prev++) {
+
+                if (nums[curr] > nums[prev]) {
+                    dp[curr] = Math.max(dp[curr], dp[prev] + 1);
                 }
-
-                dp[curr][prev + 1] = Math.max(take, nonTake);
             }
+            
+            maxi = Math.max(maxi, dp[curr]);
         }
-        return dp[0][0];
+
+        return maxi;
     }
 }
