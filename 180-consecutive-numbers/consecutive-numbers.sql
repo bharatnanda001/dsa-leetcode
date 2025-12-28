@@ -1,3 +1,4 @@
+# Write your MySQL query statement below
 # Write your MySQL query statement belo
 #select distinct  l1.num AS ConsecutiveNums
 #From Logs l1
