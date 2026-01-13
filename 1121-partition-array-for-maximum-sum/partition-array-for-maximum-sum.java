@@ -1,25 +1,16 @@
 class Solution {
-    int n;
-    Integer[] dp;;
-    public int maxSumAfterPartitioning(int[] arr, int k) {
-        n = arr.length;
-        dp = new Integer[n];
-        return solve(0,k,arr); 
-    }
-    public int solve(int idx, int k, int[] arr){
-        if(idx ==n){
-            return 0;
+     public int maxSumAfterPartitioning(int[] A, int K) {
+        int N = A.length;
+        int dp[] = new int[N + 1];
+        for (int i = 1; i <= N; ++i) {
+            int Max = 0; 
+            int best = 0;
+            for (int k = 1; k <= K && i - k >= 0; ++k) {
+                Max = Math.max(Max, A[i - k]);
+                best = Math.max(best, dp[i - k] + Max * k);
+            }
+            dp[i] = best;
         }
-        if(dp[idx] != null) return dp[idx];
-        int len =0;
-        int maxI=Integer.MIN_VALUE;
-        int maxArray= Integer.MIN_VALUE;
-        for(int i = idx; i <Math.min(n,idx+k);i++){
-            len++;
-            maxI= Math.max(arr[i],maxI);
-            int cost = maxI * len+solve(i+1,k, arr);
-            maxArray= Math.max(maxArray,cost);
-        }
-        return dp[idx]= maxArray; 
+        return dp[N];
     }
 }
