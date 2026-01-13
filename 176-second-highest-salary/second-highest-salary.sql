@@ -1,9 +1,9 @@
 # Write your MySQL query statement below
 
-WITH
-  RankedEmployees AS (
-    SELECT *, DENSE_RANK() OVER(ORDER BY salary DESC) AS `rank`
-    FROM Employee)
-SELECT MAX(salary) AS SecondHighestSalary
-FROM RankedEmployees
-WHERE `rank` = 2;
+WITH 
+  RankedEmployees as(
+    select *, dense_rank() over(order by salary desc) as rank_no
+    from Employee)
+select max(salary) as SecondHighestSalary
+from RankedEmployees
+where rank_no=2;
