@@ -18,7 +18,7 @@ public class Solution {
     private static int solve(int pos, int mask, int tight) {
 
         if (pos == limit.length()) {
-            return 1; // valid number formed
+            return 1; 
         }
 
         if (dp[pos][mask][tight] != null) {
@@ -32,15 +32,13 @@ public class Solution {
 
             int newTight = (tight == 1 && digit == ub) ? 1 : 0;
 
-            // leading zero → don't mark used
             if (mask == 0 && digit == 0) {
                 res += solve(pos + 1, mask, newTight);
             } 
-            // digit already used → skip
+            
             else if ((mask & (1 << digit)) != 0) {
                 continue;
             } 
-            // use digit
             else {
                 res += solve(pos + 1, mask | (1 << digit), newTight);
             }
