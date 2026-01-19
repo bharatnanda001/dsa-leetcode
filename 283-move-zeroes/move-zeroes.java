@@ -1,6 +1,6 @@
 class Solution {
     public void moveZeroes(int[] nums) {
-        if(nums.length ==1){
+       /* if(nums.length ==1){
             return;
         }
         int nonZeroIndex=0;
@@ -13,7 +13,15 @@ class Solution {
         while(nonZeroIndex <nums.length){
             nums[nonZeroIndex]=0;
             nonZeroIndex++;
+        }*/
+        int index =0;
+        for(int x: nums){
+            if( x!=0){
+                nums[index++]=x;
+            }
         }
-        
+        while(index<nums.length){
+            nums[index++]=0;
+        }
     }
 }
