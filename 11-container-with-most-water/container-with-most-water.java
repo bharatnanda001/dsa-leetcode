@@ -5,11 +5,11 @@ class Solution {
         int right = n-1;
         int max =0;
         while(left<right){
-            int width = right-left;
-            int area = Math.min(height[left],height[right])*width;
+            int width = right-left; // check level of water 
+            int area = Math.min(height[left],height[right])*width; //max * width
             max = Math.max(max,area);
             if(height[left]<= height[right]){
-                left++;
+                left++; //---> side go in array 
             }else{
                 right--;
             }
