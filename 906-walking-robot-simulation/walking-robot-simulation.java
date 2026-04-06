@@ -1,68 +1,37 @@
 class Solution {
     public int robotSim(int[] commands, int[][] obstacles) {
-        HashMap<Integer,Set<Integer>> map=new HashMap<>();
-        int m=obstacles.length;
-        for(int i=0;i<m;i++){
-            if(!map.containsKey(obstacles[i][0])){
-                map.put(obstacles[i][0],new HashSet<>());
-            }
-            map.get(obstacles[i][0]).add(obstacles[i][1]);
+        Set<Long> obs = new HashSet<>();
+        for (int[] o : obstacles) {
+            obs.add((o[0] + 30000L) * 100000L + (o[1] + 30000L));
         }
-        int x=0;
-        int y=0;
-        int res=-1;
-        // 0-North, 1-South, 2-East, 3-West
-        int dir=0;
-        int n=commands.length;
-        for(int i=0;i<n;i++){
-            if(commands[i]==-1){
-                if(dir==0) dir=2;
-                else if(dir==1) dir=3;
-                else if(dir==2) dir=1;
-                else dir=0;
-                continue;
-            }
-            else if(commands[i]==-2){
-                if(dir==0) dir=3;
-                else if(dir==1) dir=2;
-                else if(dir==2) dir=0;
-                else dir=1;
-                continue;
-            }
-            if(dir==0){
-                for(int j=0;j<commands[i];j++){
-                    if(map.containsKey(x) && map.get(x).contains(y+1)){
+        
+        int[][] dirs = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+        int d = 0;
+        int x = 0;
+        int y = 0;
+        int maxDist = 0;
+        
+        for (int c : commands) {
+            if (c == -1) {
+                d = (d + 1) % 4;
+            } else if (c == -2) {
+                d = (d + 3) % 4;
+            } else {
+                for (int i = 0; i < c; i++) {
+                    int nx = x + dirs[d][0];
+                    int ny = y + dirs[d][1];
+                    long nextPos = (nx + 30000L) * 100000L + (ny + 30000L);
+                    
+                    if (obs.contains(nextPos)) {
                         break;
                     }
-                    y++;
+                    x = nx;
+                    y = ny;
+                    maxDist = Math.max(maxDist, x * x + y * y);
                 }
             }
-            else if(dir==1){
-                for(int j=0;j<commands[i];j++){
-                    if(map.containsKey(x) && map.get(x).contains(y-1)){
-                        break;
-                    }
-                    y--;
-                }
-            }
-            else if(dir==2){
-                for(int j=0;j<commands[i];j++){
-                    if(map.containsKey(x+1) && map.get(x+1).contains(y)){
-                        break;
-                    }
-                    x++;
-                }
-            }
-            else{
-                for(int j=0;j<commands[i];j++){
-                    if(map.containsKey(x-1) && map.get(x-1).contains(y)){
-                        break;
-                    }
-                    x--;
-                }
-            }
-            res=Math.max(res,((x*x)+(y*y)));
         }
-        return res;
+        
+        return maxDist;
     }
 }
